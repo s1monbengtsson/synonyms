@@ -1,0 +1,52 @@
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+  box-sizing: border-box;
+}
+
+.synonym-list {
+  padding: 0;
+}
+
+.list-item {
+  list-style: none;
+  display: flex;
+  margin-bottom: .5rem;
+}
+
+.item-link {
+  border: 1px solid grey;
+  padding: .6rem 1rem;
+  width: 300px;
+  text-align: left;
+  border-radius: 4px;
+  background-color: rgba(128, 128, 128, 0.351);
+  margin: 0 auto;
+}
+
+.info-text {
+  margin: 1rem;
+}
+
+form {
+  display: flex;
+  justify-content: center;
+  margin: 1rem;
+  gap: .5rem;
+}
+
+input {
+  padding: .3rem .7rem;
+  border-radius: 4px;
+  border-style: solid;
+}
+
+button {
+  padding: .3rem .7rem;
+  background-color: rgb(90, 90, 231);
+  border: none;
+  border-radius: 4px;
+}
+
