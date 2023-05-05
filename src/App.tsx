@@ -6,7 +6,7 @@ const BASE_URL = 'https://wordsapiv1.p.rapidapi.com/words';
 const options = {
 	method: 'GET',
 	headers: {
-		'X-RapidAPI-Key': import.meta.env.VITE_API_KEY,
+		'X-RapidAPI-Key': '7b1dc438damsh4b7942ffbd9b89ap1a8c0ajsn3730c02dab28',
 		'X-RapidAPI-Host': 'wordsapiv1.p.rapidapi.com'
 	}
 };
