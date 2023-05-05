@@ -2,15 +2,20 @@ import { useState } from 'react'
 import React from 'react'
 import './App.css'
 
-type Synonyms = {
-  word: string
-  score: number
-}
+const BASE_URL = 'https://wordsapiv1.p.rapidapi.com/words';
+const options = {
+	method: 'GET',
+	headers: {
+		'X-RapidAPI-Key': import.meta.env.VITE_API_KEY,
+		'X-RapidAPI-Host': 'wordsapiv1.p.rapidapi.com'
+	}
+};
 
 function App() {
   const [word, setWord] = useState("")
   const [searchedWord, setSearchedWord] = useState("")
-  const [synonyms, setSynonyms] = useState<Synonyms[]>([])
+  const [synonyms, setSynonyms] = useState<string[]>([])
+  const [definition, setDefinition] = useState("")
 
   const handleClickedSynonym = (word: string) => {
     handleFetchData(word)
@@ -19,10 +24,12 @@ function App() {
   }
 
   const handleFetchData = async (word: string) => {
-    const res = await fetch(`https://api.datamuse.com/words?rel_syn=${word}`)
+    const res = await fetch(`${BASE_URL}/${word}`, options)  
+    
     const data = await res.json()
 
-    return setSynonyms(data)   
+    setSynonyms(data.results[0].synonyms || [])
+    setDefinition(data.results[0].definition)
   }
 
   const handleFormSubmit = (e: React.FormEvent) => {
@@ -31,6 +38,8 @@ function App() {
     handleFetchData(word)
     setSearchedWord(word)
     setWord("")
+    console.log("synonyms:", synonyms.length)
+
   }
 
 
@@ -49,9 +58,12 @@ function App() {
         <button className="form-button">Search</button>
       </form>
 
+
       {synonyms.length > 0 && (
       <>
         <span className="info-text">Showing synonyms for <span style={{fontStyle: 'italic'}}>'{searchedWord}'</span></span>
+
+        <p>Definition: {definition}</p>
         
         <ul className="synonym-list">
 
@@ -61,8 +73,8 @@ function App() {
               className="list-item"
               >
               <a 
-                onClick={() => handleClickedSynonym(synonym.word)}
-                className="item-link">{synonym.word}</a>
+                onClick={() => handleClickedSynonym(synonym)}
+                className="item-link">{synonym}</a>
             </li>
           ))}
         </ul>
@@ -73,6 +85,7 @@ function App() {
       {synonyms.length === 0 && (
         <span>No synonym found for <span style={{fontStyle: 'italic'}}>"{searchedWord}"</span></span>
       )}
+      
     </div>
   )
 }
